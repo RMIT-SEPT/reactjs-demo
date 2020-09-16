@@ -1,4 +1,8 @@
 import React, { Component } from 'react'
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import {createPerson} from "../../actions/personActions";
+
 
 class AddPerson extends Component {
     constructor(){
@@ -10,6 +14,7 @@ class AddPerson extends Component {
         desc: "",
         start_date: "",
         end_date: ""
+     
     }; 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -29,7 +34,7 @@ class AddPerson extends Component {
             end_date: this.state.end_date  
         }
 
-        console.log(newPerson);
+        this.props.createPerson(newPerson, this.props.history);
     }
     render() {
         return (
@@ -94,4 +99,11 @@ class AddPerson extends Component {
         )
     }
 }
-export default AddPerson;
+AddPerson.propTypes = {
+    createProject: PropTypes.func.isRequired
+  };
+  
+  export default connect(
+    null,
+    { createPerson }
+  )(AddPerson);
